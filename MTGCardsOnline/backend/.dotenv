@@ -1,2 +1,0 @@
- MONGO_URI=mongodb://localhost/test
- SERVER_PORT=3000
