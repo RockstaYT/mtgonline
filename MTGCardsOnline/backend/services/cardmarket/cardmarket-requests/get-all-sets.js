@@ -27,10 +27,10 @@ const get_all_sets = async () => {
 
 const save_response = async (responseJson) => {
   responseJson.expansion.forEach(async (element) => {
-    let name = element.enName;
-    let setId = parseInt(element.idExpansion);
-    let releaseDate = element.releaseDate;
-    let isReleased = element.isReleased === true;
+    const name = element.enName;
+    const setId = parseInt(element.idExpansion);
+    const releaseDate = element.releaseDate;
+    const isReleased = element.isReleased === true;
 
     create_set(name, setId, releaseDate, isReleased);
   });
