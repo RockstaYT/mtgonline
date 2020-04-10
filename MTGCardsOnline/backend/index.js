@@ -5,7 +5,7 @@ const cors = require("cors");
 
 // imports
 const { MONGO_URI, SERVER_PORT } = require("./config");
-const { create_card, get_all_cards, create_all_sets } = require("./services");
+const { create_card, get_all_cards, get_all_sets } = require("./services");
 
 // init express server
 const app = express();
@@ -36,7 +36,7 @@ app.post("/cards/create", async (req, res) => {
 
 app.post("/set/create", async (req, res) => {
   try {
-    await create_all_sets();
+    await get_all_sets();
   } catch (error) {
     console.log(error);
     res.status(404).send("Set could not be created");
