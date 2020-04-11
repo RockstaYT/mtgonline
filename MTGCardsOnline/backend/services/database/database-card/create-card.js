@@ -26,10 +26,10 @@ const create_card = async (
   });
 
   //if card exists push price and return
-  if (card) {
-    card.price.push(newPrice);
-    card.price_foil.push(newPriceFoil);
-    card.save();
+  if (await card) {
+    await card.price.push(newPrice);
+    await card.price_foil.push(newPriceFoil);
+    await card.save();
 
     console.log(
       `create-card: Card ${name} from set ${set.name} alredy exists. Price updated.`
@@ -38,8 +38,13 @@ const create_card = async (
   }
 
   //remove (...) from card name
-  let nameTrimmed = name.substring(0, name.indexOf("("));
-  nameTrimmed = nameTrimmed.replace(" ", "");
+  let nameTrimmed;
+  if (await name.includes("(")) {
+    nameTrimmed = await name.substring(0, name.indexOf("("));
+    nameTrimmed = await nameTrimmed.replace(" ", "");
+  } else {
+    nameTrimmed = await name;
+  }
 
   //check if reprint exists
   let reprint = await Reprint.findOne({
@@ -47,7 +52,7 @@ const create_card = async (
   });
 
   //if reprint doesnt exist, create one
-  if (!reprint) {
+  if ((await reprint) === null) {
     reprint = await Reprint.create({ name: nameTrimmed });
   }
 
@@ -64,8 +69,8 @@ const create_card = async (
   });
 
   //push card into reprint
-  reprint.reprints.push(newCard._id);
-  reprint.save();
+  await reprint.reprints.push(newCard._id);
+  await reprint.save();
 
   //return created card
   return newCard;

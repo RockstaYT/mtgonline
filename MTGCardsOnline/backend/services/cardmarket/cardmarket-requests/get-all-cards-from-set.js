@@ -13,7 +13,7 @@ const get_all_cards_from_set = async () => {
 
   let responseJSON = await api_call(uri);
 
-  responseJSON.single.forEach(async (element) => {
+  for (let element of responseJSON.single) {
     const cardId = element.idProduct;
 
     const uri = `/ws/v2.0/output.json/products/${cardId}`;
@@ -23,7 +23,7 @@ const get_all_cards_from_set = async () => {
     let price = await response.product.priceGuide.TREND;
     let priceFoil = await response.product.priceGuide.TRENDFOIL;
     let image = await response.product.image;
-    let website = (await "cardmarket.com/") + response.product.website;
+    let website = (await "cardmarket.com") + response.product.website;
     let rarity = await response.product.rarity;
     let reprints = await response.product.reprint;
     let setId = await parseInt(response.product.expansion.idExpansion);
@@ -38,7 +38,34 @@ const get_all_cards_from_set = async () => {
       rarity,
       reprints
     );
-  });
+  }
+
+  /*responseJSON.single.forEach(async (element) => {
+    const cardId = element.idProduct;
+
+    const uri = `/ws/v2.0/output.json/products/${cardId}`;
+    let response = await api_call(uri);
+
+    let cardName = await response.product.enName;
+    let price = await response.product.priceGuide.TREND;
+    let priceFoil = await response.product.priceGuide.TRENDFOIL;
+    let image = await response.product.image;
+    let website = (await "cardmarket.com") + response.product.website;
+    let rarity = await response.product.rarity;
+    let reprints = await response.product.reprint;
+    let setId = await parseInt(response.product.expansion.idExpansion);
+
+    await create_card(
+      cardName,
+      setId,
+      price,
+      priceFoil,
+      image,
+      website,
+      rarity,
+      reprints
+    );
+  });*/
 };
 
 const api_call = async (uri) => {
