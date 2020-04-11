@@ -6,10 +6,10 @@ const cors = require("cors");
 // imports
 const { MONGO_URI, SERVER_PORT } = require("./config");
 const {
-  create_card,
   get_all_cards,
   get_all_sets,
   get_all_cards_from_set,
+  get_set_id,
 } = require("./services");
 
 // init express server
@@ -28,19 +28,11 @@ app.use(bodyParser.json({ limit: "50mb" }));
 app.use(cors());
 
 // POST
-app.post("/cards/create", async (req, res) => {
-  try {
-    let newCard = await create_card(req.body);
-    res.send(newCard);
-  } catch (error) {
-    console.log(error);
-    res.status(404).send("Card could not be created");
-  }
-});
-
 app.post("/card/create", async (req, res) => {
   try {
-    await get_all_cards_from_set();
+    await get_all_cards_from_set(req.body.setId);
+    console.log(`Added/Updated all cards from set ${req.body.setId}`);
+    res.send(`Added/Updated all cards from set ${req.body.setId}`);
   } catch (error) {
     console.log(error);
     res.status(404).send(error);
