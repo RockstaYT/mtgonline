@@ -41,7 +41,7 @@ const create_card = async (
   let nameTrimmed;
   if (await name.includes("(")) {
     nameTrimmed = await name.substring(0, name.indexOf("("));
-    nameTrimmed = await nameTrimmed.replace(" ", "");
+    nameTrimmed = await nameTrimmed.trim();
   } else {
     nameTrimmed = await name;
   }

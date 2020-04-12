@@ -19,7 +19,7 @@ const get_all_cards_from_set = async (setId) => {
 
     if (reprints) {
       for (let reprint of reprints) {
-        card_loop(reprint);
+        await card_loop(reprint);
       }
     }
   }

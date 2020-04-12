@@ -3,6 +3,7 @@ const {
   get_all_cards,
   create_set,
   get_set_id,
+  mkm_api_call_count,
 } = require("./database");
 const {
   get_all_sets,
@@ -18,4 +19,5 @@ module.exports = {
   get_all_cards_from_set,
   get_set_id,
   mkm_api_call,
+  mkm_api_call_count,
 };

@@ -44,7 +44,7 @@ app.post("/set/create", async (req, res) => {
     await get_all_sets();
   } catch (error) {
     console.log(error);
-    res.status(404).send("Set could not be created");
+    res.status(404).send(error);
   }
 });
 
