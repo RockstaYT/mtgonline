@@ -2,6 +2,7 @@ const { create_card } = require("./database-card/create-card");
 const { get_all_cards } = require("./database-card/get-all-cards");
 const { create_set } = require("./database-card/create-set");
 const { get_set_id } = require("./database-card/get-set-id");
+const { get_all_sets_db } = require("./database-card/get-all-sets-db");
 const {
   mkm_api_call_count,
 } = require("./database-api-calls/mkm-api-call-count");
@@ -12,4 +13,5 @@ module.exports = {
   create_set,
   get_set_id,
   mkm_api_call_count,
+  get_all_sets_db,
 };

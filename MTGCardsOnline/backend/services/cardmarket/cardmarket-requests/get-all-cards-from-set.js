@@ -1,10 +1,4 @@
 const MkmApiClient = require("mkm-api");
-const {
-  APP_TOKEN,
-  APP_SECRET,
-  ACCESS_TOKEN,
-  ACCESS_TOKEN_SECRET,
-} = require("../../../config");
 const { create_card } = require("../../database");
 const { mkm_api_call } = require("./mkm-api-call");
 
@@ -16,12 +10,6 @@ const get_all_cards_from_set = async (setId) => {
   //forech single in the set
   for (let element of responseJSON.single) {
     let reprints = await card_loop(element);
-
-    if (reprints) {
-      for (let reprint of reprints) {
-        await card_loop(reprint);
-      }
-    }
   }
 };
 

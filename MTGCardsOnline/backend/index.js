@@ -9,7 +9,7 @@ const {
   get_all_cards,
   get_all_sets,
   get_all_cards_from_set,
-  get_set_id,
+  get_all_sets_db,
 } = require("./services");
 
 // init express server
@@ -57,6 +57,17 @@ app.get("/cards/getall", async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(404).send("no cards were found");
+  }
+});
+
+app.get("/sets/getall", async (req, res) => {
+  try {
+    // db func
+    let allCards = await get_all_sets_db();
+    res.send(allCards);
+  } catch (error) {
+    console.log(error);
+    res.status(404).send("no sets were found.");
   }
 });
 

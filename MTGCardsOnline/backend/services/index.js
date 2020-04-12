@@ -4,6 +4,7 @@ const {
   create_set,
   get_set_id,
   mkm_api_call_count,
+  get_all_sets_db,
 } = require("./database");
 const {
   get_all_sets,
@@ -20,4 +21,5 @@ module.exports = {
   get_set_id,
   mkm_api_call,
   mkm_api_call_count,
+  get_all_sets_db,
 };
