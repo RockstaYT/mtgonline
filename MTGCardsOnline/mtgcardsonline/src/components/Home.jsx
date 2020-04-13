@@ -1,37 +1,49 @@
-import React, { Component } from "react";
+import React, { Component, useState, useEffect } from "react";
 import axios from "axios";
+import history from "./history.jsx";
 
-class Home extends Component {
-  state = {
-    sets: [],
+function Home(props) {
+  const selectSet = async (e) => {
+    await props.hadleSet(e);
   };
-  componentDidMount() {
+
+  const [sets, setSets] = useState([]);
+
+  useEffect(() => {
     axios.get(`http://localhost:3000/sets/getall`).then((res) => {
-      console.log(res.data);
-      const sets = res.data;
-      this.setState({ sets });
+      const allsets = arrayRotate(res.data);
+      setSets(allsets);
     });
-  }
-  render() {
-    return (
-      <div className="home">
-        <div className="set_display">
-          <ul>
-            {this.state.sets.map((sets) => (
-              <li>
-                <a href="./Set">{sets.name}</a>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="new_cards"></div>
+  }, []);
+
+  return (
+    <div className="home">
+      <div className="set_display">
+        <ul>
+          {sets.map((sets) => (
+            <li>
+              <button onClick={() => history.push("/Set") /*selectSet(sets)*/}>
+                {sets.name}
+              </button>
+              {/* <a href="./Set">{sets.name}</a> */}
+            </li>
+          ))}
+        </ul>
       </div>
-    );
-    /*return (
-      <ul>{ this.state.persons.map(person => <li>{person.name}</li>)}</ul>
-    <div className="home">This is an empty Website.</div>
-    );*/
+      <div className="new_cards">This part is still empty.</div>
+    </div>
+  );
+}
+
+function arrayRotate(arr) {
+  var array_lenght = arr.lenght;
+  let new_array = [];
+  for (var element of arr) {
+    new_array.splice(array_lenght - 1, 0, element);
+    array_lenght--;
   }
+
+  return new_array;
 }
 
 export default Home;
