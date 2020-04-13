@@ -8,7 +8,7 @@ function Navbar(props) {
   return (
     <div className="header">
       <div className="logo">
-        <a className="logo" href="./Home">
+        <a className="logo" href="./">
           MTG Cards Online
         </a>
       </div>
@@ -22,26 +22,8 @@ function Navbar(props) {
       <div className="loginModule">
         <button className="loginButton">Login</button>
       </div>
-
-      {/*       {props.isLoggedIn ? (
-        <div>Logged In</div>
-      ) : (
-        <div className="loginModule">
-          <button className="loginButton" onClick={() => clickButton(true)}>
-            Login
-          </button>
-        </div>
-      )} */}
     </div>
   );
 }
-
-/**
- * parent -- he not care about your dick - fy
- * child1
- * child2 he has dick --> declare dick --> he now updates Hook -> IS NOT BIG DICK -> after update hook --> rerender everything with BIG DICK
- * child3 he maybe no need dick - we dont give a vagina
- * child4 he needs dick --> he update dick to BIG DICK
- */
 
 export default Navbar;

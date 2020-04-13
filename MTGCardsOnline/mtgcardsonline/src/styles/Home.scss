@@ -1,8 +1,41 @@
 .home {
-  height: 42.5vh;
-  justify-content: start;
-  align-content: center;
-  font-style: bold;
-  font-size: 10vh;
-  margin-top: 50vh;
+  background-color: $background-color;
+  min-height: 94vh;
+  display: grid;
+  grid-template-rows: 15vh 100vh;
+}
+
+.set_display {
+  align-self: center;
+
+  ul {
+    width: 94vw;
+    white-space: nowrap;
+    overflow: hidden;
+    overflow-x: scroll;
+    margin-left: 2vw;
+
+    li {
+      justify-self: start;
+      align-self: center;
+      display: inline-block;
+      margin-right: 10px;
+      margin-bottom: 30px;
+      margin-top: 20px;
+
+      a {
+        padding: 10px;
+        color: $primary-text-color;
+        font-size: 1.5vh;
+        border-style: solid;
+        border-radius: 5px;
+        border-color: $primary-text-color;
+        text-decoration: none;
+      }
+    }
+  }
+}
+
+.new_cards {
+  background-color: red;
 }

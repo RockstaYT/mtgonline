@@ -1,9 +1,8 @@
 import React, { useState } from "react";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Navbar from "./Navbar.jsx";
 import Home from "./Home.jsx";
 import Footer from "./Footer.jsx";
-
-const test = require("../database/connectDb.js");
 
 function App() {
   const [isLoggedIn, setLogin] = useState(false);
@@ -14,11 +13,22 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <Navbar handleLogin={handleLogin} isLoggedIn={isLoggedIn} />
-      <Home />
-      <Footer />
-    </div>
+    <Router>
+      <div className="App">
+        <Navbar handleLogin={handleLogin} isLoggedIn={isLoggedIn} />
+        {/*         <Home />
+        <Footer /> */}
+
+        <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route path="/Set">
+            <Footer />
+          </Route>
+        </Switch>
+      </div>
+    </Router>
   );
 }
 

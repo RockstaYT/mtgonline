@@ -4,7 +4,7 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   align-content: center;
-  box-shadow: 0 5px 5px $header-shadow-color;
+  box-shadow: 0 10px 5px $header-shadow-color;
 }
 
 .logo {
