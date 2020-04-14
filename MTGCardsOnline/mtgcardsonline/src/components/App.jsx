@@ -4,10 +4,12 @@ import Navbar from "./Navbar.jsx";
 import Home from "./Home.jsx";
 import Footer from "./Footer.jsx";
 import history from "./history.jsx";
+import Set from "./Set.jsx";
+import Card from "./Card.jsx";
 
 function App() {
   const [isLoggedIn, setLogin] = useState(false);
-  const [selectedSet, setSet] = useState([]);
+  const [selectedSet, setSet] = useState({});
 
   const handleLogin = async (loginState) => {
     await setLogin(loginState);
@@ -28,8 +30,11 @@ function App() {
           <Route exact path="/">
             <Home hadleSet={hadleSet} />
           </Route>
-          <Route path="/Set">
-            <Footer />
+          <Route path="/set">
+            <Set />
+          </Route>
+          <Route path="/card">
+            <Card />
           </Route>
         </Switch>
       </div>

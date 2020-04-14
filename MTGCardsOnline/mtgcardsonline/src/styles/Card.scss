@@ -1,0 +1,54 @@
+.cardInfo {
+  height: 100vh;
+  background-color: $background-color;
+  display: grid;
+  grid-template-columns: 25% 25% 50%;
+  grid-template-rows: 20vh auto;
+}
+
+.cardName {
+  color: $primary-text-color;
+  font-size: 3vh;
+  text-align: start;
+  padding-top: 10vh;
+  padding-left: 10vw;
+}
+
+.cardImage {
+  grid-column: 1;
+  justify-self: start;
+
+  img {
+    margin-left: 10vw;
+    border-style: solid;
+    border-radius: 8px;
+    border-color: $primary-text-color;
+  }
+}
+
+.cardPrices {
+  grid-column: 2;
+  text-align: start;
+  font-size: 2vh;
+  color: $primary-text-color;
+  margin-left: 2vw;
+
+  .priceTrend {
+    margin-top: 7.5vh;
+  }
+
+  .PriceTrendFoil {
+    margin-top: 7.5vh;
+  }
+
+  .lastUpdated {
+    margin-top: 6.7vh;
+    font-size: 0.8vh;
+  }
+}
+
+.priceChart {
+  height: 30vh;
+  width: 30vw;
+  color: yellow;
+}
