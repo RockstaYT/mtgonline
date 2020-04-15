@@ -1,8 +1,10 @@
 import React, { Component, useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import axios from "axios";
-import history from "./history.jsx";
 
 function Home(props) {
+  let history = useHistory();
+
   const selectSet = async (e) => {
     await props.hadleSet(e);
   };
@@ -22,7 +24,7 @@ function Home(props) {
         <ul>
           {sets.map((sets) => (
             <li>
-              <button onClick={() => history.push("/Set") /*selectSet(sets)*/}>
+              <button onClick={() => history.push("/set") /*selectSet(sets)*/}>
                 {sets.name}
               </button>
               {/* <a href="./Set">{sets.name}</a> */}

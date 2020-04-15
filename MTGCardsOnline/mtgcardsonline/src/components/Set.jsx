@@ -1,6 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useHistory } from "react-router-dom";
 
 function Set(props) {
+  let history = useHistory();
+
+  useEffect(() => {
+    if (Object.keys(props.selectedSet).length == 0) {
+      window.alert("Zurück an den Absender AMK");
+      history.push("/");
+    }
+  }, []);
+
   return (
     <div className="setPage">
       <div className="setInfo">

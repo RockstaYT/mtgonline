@@ -1,9 +1,14 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useHistory,
+} from "react-router-dom";
 import Navbar from "./Navbar.jsx";
 import Home from "./Home.jsx";
 import Footer from "./Footer.jsx";
-import history from "./history.jsx";
 import Set from "./Set.jsx";
 import Card from "./Card.jsx";
 
@@ -16,22 +21,22 @@ function App() {
     return;
   };
 
-  const hadleSet = async (setState) => {
+  const handleSet = async (setState) => {
     await setSet(setState);
     return;
   };
 
   return (
-    <Router history={history}>
+    <Router>
       <div className="App">
         <Navbar handleLogin={handleLogin} isLoggedIn={isLoggedIn} />
 
         <Switch>
           <Route exact path="/">
-            <Home hadleSet={hadleSet} />
+            <Home handleSet={handleSet} />
           </Route>
           <Route path="/set">
-            <Set />
+            <Set selectedSet={selectedSet} />
           </Route>
           <Route path="/card">
             <Card />
