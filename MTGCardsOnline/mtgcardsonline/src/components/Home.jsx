@@ -4,17 +4,18 @@ import axios from "axios";
 
 function Home(props) {
   let history = useHistory();
-
-  const selectSet = async (e) => {
-    await props.hadleSet(e);
-  };
-
   const [sets, setSets] = useState([]);
+
+  const setClicked = async (e) => {
+    history.push(`/set`);
+    await props.handleSet(e);
+  };
 
   useEffect(() => {
     axios.get(`http://localhost:3000/sets/getall`).then((res) => {
       const allsets = arrayRotate(res.data);
       setSets(allsets);
+      console.log(allsets);
     });
   }, []);
 
@@ -24,10 +25,7 @@ function Home(props) {
         <ul>
           {sets.map((sets) => (
             <li>
-              <button onClick={() => history.push("/set") /*selectSet(sets)*/}>
-                {sets.name}
-              </button>
-              {/* <a href="./Set">{sets.name}</a> */}
+              <button onClick={() => setClicked(sets)}>{sets.name}</button>
             </li>
           ))}
         </ul>

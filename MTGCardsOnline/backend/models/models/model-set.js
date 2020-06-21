@@ -6,6 +6,7 @@ const SetShema = new Schema({
   setId: { type: Number, trim: true },
   releaseDate: { type: Date, trim: true },
   isReleased: { type: Boolean, trim: true },
+  cards: [{ type: mongoose.Schema.Types.ObjectId, ref: "Card", trim: true }],
 });
 
 const Set = mongoose.model("Set", SetShema);

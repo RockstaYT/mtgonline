@@ -10,7 +10,7 @@ const { mkm_api_call_count } = require("../../database");
 const mkm_api_call = async (uri) => {
   let count = await mkm_api_call_count();
 
-  if (count > 4000) {
+  if (count > 1000) {
     throw new error("Too many api calls");
   }
 
