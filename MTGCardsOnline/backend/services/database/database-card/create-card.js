@@ -73,8 +73,8 @@ const create_card = async (
   await reprint.save();
 
   //push card into set
-  set.cards.push(newCard._id);
-  await reprint.save();
+  await set.cards.push(newCard._id);
+  await set.save();
 
   console.log(`create-card: Card ${name} from set ${set.name} was created.`);
 };

@@ -7,7 +7,20 @@ function Home(props) {
   const [sets, setSets] = useState([]);
 
   const setClicked = async (e) => {
+    if (e.cards.length == 0) {
+      const requestParams = { setId: e.setId };
+
+      await axios.post(
+        `http://localhost:3000/set/create_all_cards`,
+        requestParams
+      );
+
+      await axios.get(`http://localhost:3000/sets/getbyid`).then((res) => {
+        e = res.data;
+      });
+    }
     history.push(`/set`);
+
     await props.handleSet(e);
   };
 
@@ -15,7 +28,6 @@ function Home(props) {
     axios.get(`http://localhost:3000/sets/getall`).then((res) => {
       const allsets = arrayRotate(res.data);
       setSets(allsets);
-      console.log(allsets);
     });
   }, []);
 
@@ -23,9 +35,9 @@ function Home(props) {
     <div className="home">
       <div className="set_display">
         <ul>
-          {sets.map((sets) => (
+          {sets.map((set) => (
             <li>
-              <button onClick={() => setClicked(sets)}>{sets.name}</button>
+              <button onClick={() => setClicked(set)}>{set.name}</button>
             </li>
           ))}
         </ul>
