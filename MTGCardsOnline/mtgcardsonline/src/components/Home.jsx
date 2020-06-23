@@ -10,14 +10,11 @@ function Home(props) {
     if (e.cards.length == 0) {
       const requestParams = { setId: e.setId };
 
-      await axios.post(
-        `http://localhost:3000/set/create_all_cards`,
-        requestParams
-      );
-
-      await axios.get(`http://localhost:3000/sets/getbyid`).then((res) => {
-        e = res.data;
-      });
+      await axios
+        .post(`http://localhost:3000/set/create_all_cards`, requestParams)
+        .then((res) => {
+          e = res.data;
+        });
     }
     history.push(`/set`);
 

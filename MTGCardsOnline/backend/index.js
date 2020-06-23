@@ -12,6 +12,7 @@ const {
   get_all_sets_db,
   get_set_by_id,
   get_all_cards_from_set_db,
+  get_prices_of_card,
 } = require("./services");
 
 // init express server
@@ -30,29 +31,52 @@ app.use(bodyParser.json({ limit: "50mb" }));
 app.use(cors());
 
 // POST
-app.post("/set/create", async (req, res) => {
+
+//create all sets from MTG, conenction with cm / only call by hand/admin panel / return 204, no content
+app.post("/sets/create", async (req, res) => {
   try {
     await get_all_sets();
+    console.log("Created all sets succefully. Returning...");
+    res.status(204).send();
   } catch (error) {
     console.log(error);
     res.status(404).send(error);
   }
 });
 
+//create all cards from specific set, connection with cm / only call when a set is chosen, but no cards exist added (Home) / return 200, OK
 app.post("/set/create_all_cards", async (req, res) => {
   try {
     await get_all_cards_from_set(req.body.setId);
+    let set = await get_set_by_id(req.body.setId);
+    console.log(
+      "Created all cards and re-fetched set sucesfully. Returning..."
+    );
+    res.status(200).send(set);
   } catch (error) {
     console.log(error);
     res.status(404).send(error);
   }
 });
 
-app.post("/sets/getcards", async (req, res) => {
+//get all cards from specific set, connection with db / only call when a set is chosen (Home) / return 200, OK
+app.post("/set/getcards", async (req, res) => {
   try {
-    console.log(req.body.setId);
     let set = await get_all_cards_from_set_db(req.body.setId);
-    res.send(set);
+    console.log("Got all cards. Returning...");
+    res.status(200).send(set);
+  } catch (error) {
+    console.log(error);
+    res.status(404).send("no sets were found.");
+  }
+});
+
+//get all prices from specfic card, connection with db / only call when a card is chosen (Set) / return 200, OK
+app.post("/card/getprices", async (req, res) => {
+  try {
+    let cardPrices = await get_prices_of_card(req.body.cardId);
+    console.log("Got all Prices. Returning...");
+    res.status(200).send(cardPrices);
   } catch (error) {
     console.log(error);
     res.status(404).send("no sets were found.");
@@ -60,33 +84,13 @@ app.post("/sets/getcards", async (req, res) => {
 });
 
 //GET
-app.get("/cards/getall", async (req, res) => {
-  try {
-    // db func
-    let allCards = await get_all_cards();
-    res.send(allCards);
-  } catch (error) {
-    console.log(error);
-    res.status(404).send("no cards were found");
-  }
-});
 
+//get all sets, connection with db / only call when frontpage is loading (Home) / return 200, OK
 app.get("/sets/getall", async (req, res) => {
   try {
-    // db func
-    let allCards = await get_all_sets_db();
-    res.send(allCards);
-  } catch (error) {
-    console.log(error);
-    res.status(404).send("no sets were found.");
-  }
-});
-
-app.get("/sets/getbyid", async (req, res) => {
-  try {
-    // db func
-    let set = await get_set_by_id(req.body.setId);
-    res.send(set);
+    let allSets = await get_all_sets_db();
+    console.log("Fetched all sets. Returning...");
+    res.status(200).send(allSets);
   } catch (error) {
     console.log(error);
     res.status(404).send("no sets were found.");

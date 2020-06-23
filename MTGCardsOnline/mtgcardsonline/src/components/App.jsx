@@ -15,6 +15,7 @@ import Card from "./Card.jsx";
 function App() {
   const [isLoggedIn, setLogin] = useState(false);
   const [selectedSet, setSet] = useState({});
+  const [selectedCard, setCard] = useState({});
 
   const handleLogin = async (loginState) => {
     await setLogin(loginState);
@@ -23,6 +24,11 @@ function App() {
 
   const handleSet = async (setState) => {
     await setSet(setState);
+    return;
+  };
+
+  const handleCard = async (setState) => {
+    await setCard(setState);
     return;
   };
 
@@ -36,10 +42,10 @@ function App() {
             <Home handleSet={handleSet} />
           </Route>
           <Route path="/set">
-            <Set selectedSet={selectedSet} />
+            <Set selectedSet={selectedSet} handleCard={handleCard} />
           </Route>
           <Route path="/card">
-            <Card />
+            <Card selectedCard={selectedCard} />
           </Route>
         </Switch>
       </div>

@@ -7,13 +7,18 @@ function Set(props) {
   let history = useHistory();
   const [cards, setCards] = useState([]);
 
+  const cardClicked = async (e) => {
+    history.push(`/card`);
+
+    await props.handleCard(e);
+  };
+
   useEffect(() => {
     const requestParams = { setId: props.selectedSet.setId };
 
     axios
-      .post(`http://localhost:3000/sets/getcards`, requestParams)
+      .post(`http://localhost:3000/set/getcards`, requestParams)
       .then((res) => {
-        console.log(res.data);
         setCards(res.data);
       });
 
@@ -34,12 +39,10 @@ function Set(props) {
       </div>
 
       <div className="setCards">
-        <ul></ul>
-
         <ul className="cardList">
           {cards.map((card) => (
             <li>
-              <div>{card.name}</div>
+              <button onClick={() => cardClicked(card)}>{card.name}</button>
             </li>
           ))}
         </ul>

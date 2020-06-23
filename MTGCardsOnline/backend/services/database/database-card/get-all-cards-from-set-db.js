@@ -1,6 +1,5 @@
 const { Card } = require("../../../models");
 const { Set } = require("../../../models");
-const { get_set_by_id } = require("./get-set-by-id");
 
 const get_all_cards_from_set_db = async (id) => {
   const set = await Set.findOne({ setId: id });

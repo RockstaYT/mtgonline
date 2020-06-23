@@ -7,6 +7,7 @@ const {
   get_all_sets_db,
   get_set_by_id,
   get_all_cards_from_set_db,
+  get_prices_of_card,
 } = require("./database");
 const {
   get_all_sets,
@@ -26,4 +27,5 @@ module.exports = {
   get_all_sets_db,
   get_set_by_id,
   get_all_cards_from_set_db,
+  get_prices_of_card,
 };

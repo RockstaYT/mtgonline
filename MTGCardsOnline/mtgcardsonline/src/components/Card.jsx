@@ -1,58 +1,95 @@
-import React from "react";
-import { Chart } from "react-charts";
+import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
+import Chart from "chart.js";
+import axios from "axios";
+import moment from "moment";
 
 function Card(props) {
-  const data = React.useMemo(
-    () => [
-      {
-        label: "Price",
-        data: [
-          [0, 1],
-          [1, 2],
-          [2, 4],
-          [3, 2],
-          [4, 7],
-        ],
-      },
-      {
-        label: "Price Foil",
-        data: [
-          [0, 3],
-          [1, 1],
-          [2, 5],
-          [3, 6],
-          [4, 4],
-        ],
-      },
-    ],
-    []
-  );
+  let history = useHistory();
+  const [card, setCard] = useState([]);
+  const [newestPrice, setNewestPrice] = useState([]);
+  const [newestPriceFoil, setNewestPriceFoil] = useState([]);
 
-  const axes = React.useMemo(
-    () => [
-      { primary: true, type: "linear", position: "bottom" },
-      { type: "linear", position: "left" },
-    ],
-    []
-  );
+  useEffect(() => {
+    setCard(props.selectedCard);
+    const requestParams = { cardId: props.selectedCard._id };
+
+    const prices = [];
+    const pricesfoil = [];
+    const label = [];
+
+    //chart test
+    var ctx = document.getElementById("myChart");
+
+    var myChart = new Chart(ctx, {
+      type: "line",
+      data: {
+        labels: label,
+        datasets: [
+          {
+            label: "Prices",
+            data: prices,
+            backgroundColor: ["rgba(0,0,0,0)"],
+            borderColor: ["rgba(255, 99, 132, 1)"],
+            borderWidth: 1,
+          },
+          {
+            label: "Prices Foil",
+            data: pricesfoil,
+            backgroundColor: ["rgba(0,0,0,0)"],
+            borderColor: ["rgba(5, 5, 255, 1)"],
+            borderWidth: 1,
+          },
+        ],
+      },
+      options: {},
+    });
+
+    axios
+      .post(`http://localhost:3000/card/getprices`, requestParams)
+      .then((res) => {
+        const lastPrice = lastItem(res.data[0]);
+        const lastPriceFoil = lastItem(res.data[1]);
+
+        setNewestPrice(lastPrice);
+        setNewestPriceFoil(lastPriceFoil);
+
+        myChart.data.datasets[0].data.push(lastPrice.price);
+        myChart.data.datasets[1].data.push(lastPriceFoil.price);
+        myChart.data.labels.push(moment(lastPrice.date).format("DD.MM.YYYY"));
+        myChart.update();
+      });
+    if (Object.keys(props.selectedCard).length == 0) {
+      window.alert("Zurück an den Absender AMK");
+      history.push("/");
+    }
+  }, []);
 
   return (
     <div className="cardInfo">
-      <div className="cardName">Card Name</div>
+      <div className="cardName">{card.name}</div>
       <div className="cardImage">
-        <img src="//static.cardmarket.com/img/7c1e64a946edb7b2fc545d6fc9d35ba1/items/1/ELD/401294.jpg"></img>
+        <img src={card.image}></img>
       </div>
       <div className="cardPrices">
-        <div className="priceTrend">Price:</div>
-        <div className="PriceTrendFoil">Foil Price Trend:</div>
-        <div className="lastUpdated">Last updated:</div>
+        <div className="priceTrend">Price: {newestPrice.price} €</div>
+        <div className="PriceTrendFoil">
+          Foil Price Trend: {newestPriceFoil.price} €
+        </div>
+        <div className="lastUpdated">
+          Last updated: {moment(newestPrice.date).format("DD.MM.YYYY")}
+        </div>
       </div>
 
       <div className="priceChart">
-        <Chart data={data} axes={axes} tooltip dark />
+        <canvas id="myChart" width="400" height="400"></canvas>
       </div>
     </div>
   );
+}
+
+function lastItem(arr) {
+  return arr.pop();
 }
 
 export default Card;
