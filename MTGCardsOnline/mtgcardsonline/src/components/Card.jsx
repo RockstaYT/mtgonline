@@ -48,16 +48,23 @@ function Card(props) {
     axios
       .post(`http://localhost:3000/card/getprices`, requestParams)
       .then((res) => {
+        const prices = res.data[0];
+        const pricesFoil = res.data[1];
+
+        for (let price of prices) {
+          myChart.data.datasets[0].data.push(price.price);
+          myChart.data.labels.push(moment(price.date).format("DD.MM.YYYY"));
+        }
+
+        for (let priceFoil of pricesFoil) {
+          myChart.data.datasets[1].data.push(priceFoil.price);
+        }
+        myChart.update();
+
         const lastPrice = lastItem(res.data[0]);
         const lastPriceFoil = lastItem(res.data[1]);
-
         setNewestPrice(lastPrice);
         setNewestPriceFoil(lastPriceFoil);
-
-        myChart.data.datasets[0].data.push(lastPrice.price);
-        myChart.data.datasets[1].data.push(lastPriceFoil.price);
-        myChart.data.labels.push(moment(lastPrice.date).format("DD.MM.YYYY"));
-        myChart.update();
       });
     if (Object.keys(props.selectedCard).length == 0) {
       window.alert("Zurück an den Absender AMK");
