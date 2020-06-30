@@ -12,11 +12,13 @@ import Footer from "./Footer.jsx";
 import Set from "./Set.jsx";
 import Card from "./Card.jsx";
 import Register from "./Register.jsx";
+import Login from "./login.jsx";
 
 function App() {
   const [isLoggedIn, setLogin] = useState(false);
   const [selectedSet, setSet] = useState({});
   const [selectedCard, setCard] = useState({});
+  const [user, setUser] = useState({});
 
   const handleLogin = async (loginState) => {
     await setLogin(loginState);
@@ -30,6 +32,11 @@ function App() {
 
   const handleCard = async (setState) => {
     await setCard(setState);
+    return;
+  };
+
+  const handleUser = async (setState) => {
+    await setUser(setState);
     return;
   };
 
@@ -49,7 +56,7 @@ function App() {
             <Card selectedCard={selectedCard} />
           </Route>
           <Route path="/register">
-            <Register />
+            <Register handleUser={handleUser} handleLogin={handleLogin} />
           </Route>
         </Switch>
       </div>

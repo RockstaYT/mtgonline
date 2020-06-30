@@ -19,6 +19,7 @@ const {
   get_set_by_id,
   get_all_cards_from_set_db,
   get_prices_of_card,
+  check_username,
 } = require("./services");
 
 // init express server
@@ -105,6 +106,16 @@ app.post("/card/getprices", async (req, res) => {
   }
 });
 
+//check if Username alredy exists
+app.post("/username", async (req, res) => {
+  try {
+    let foundUser = await check_username(req.body.username);
+    res.status(200).send(foundUser);
+  } catch (error) {
+    res.status(404).send(error);
+  }
+});
+
 //login
 app.post("/login", passport.authenticate("local"), async (req, res) => {
   try {
@@ -137,11 +148,11 @@ app.post("/register", async (req, res) => {
 
           res.status(200).send(newUser);
         } else {
-          res.send("username is taken");
+          res.status(404).send("username is taken");
           return;
         }
       } catch (error) {
-        res.send(error);
+        res.statuss(404).send(error);
       }
     });
   } catch (error) {

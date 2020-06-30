@@ -2,14 +2,51 @@
   background-color: $background-color;
   min-height: 94vh;
   display: grid;
+  grid-template-columns: repeat(3, 1fr);
 }
 
 .registerList {
-  background-color: red;
   list-style: none;
+  font-size: 2vh;
+  grid-column: 2;
+  color: $primary-text-color;
+  padding-top: 5vh;
 
-  .username {
-    background-color: blue;
-    font-size: 3.2vh;
+  li {
+    text-align: start;
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+
+    input {
+      float: right;
+      clear: both;
+      border-radius: 50px;
+      font-size: 2vh;
+      border-color: $primary-text-color;
+      color: $primary-text-color;
+      background-color: $background-color;
+      text-indent: 10px;
+    }
+
+    div {
+      padding-top: 25px;
+      padding-right: 0px;
+      text-align: end;
+    }
+
+    button {
+      border-radius: 5px;
+      color: $primary-text-color;
+      border-color: $primary-text-color;
+      background: $background-color;
+      border-style: solid;
+      font-style: bold;
+      font-size: 1.5vh;
+      width: 4vw;
+      height: 3vh;
+      margin-right: 0.3vw;
+
+      margin-top: 3vh;
+    }
   }
 }

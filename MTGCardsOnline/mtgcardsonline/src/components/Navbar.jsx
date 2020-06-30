@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 
 function Navbar(props) {
-  const clickButton = async (e) => {
-    await props.handleLogin(e);
+  let history = useHistory();
+  const registerClicked = async (e) => {
+    history.push(`/register`);
   };
 
   return (
@@ -20,7 +22,8 @@ function Navbar(props) {
         />
       </div>
       <div className="loginModule">
-        <button className="loginButton">Login</button>
+        <button onClick={() => registerClicked()}>Register</button>
+        <button>Login</button>
       </div>
     </div>
   );

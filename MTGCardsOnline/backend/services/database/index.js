@@ -5,6 +5,7 @@ const { get_set_id } = require("./database-card/get-set-id");
 const { get_all_sets_db } = require("./database-card/get-all-sets-db");
 const { get_set_by_id } = require("./database-card/get-set-by-id");
 const { get_prices_of_card } = require("./database-card/get-prices-of-card");
+const { check_username } = require("./database-user/check-username");
 const {
   get_all_cards_from_set_db,
 } = require("./database-card/get-all-cards-from-set-db");
@@ -22,4 +23,5 @@ module.exports = {
   get_set_by_id,
   get_all_cards_from_set_db,
   get_prices_of_card,
+  check_username,
 };
