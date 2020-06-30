@@ -1,12 +1,18 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+const session = require("express-session");
+const passport = require("passport");
 const cors = require("cors");
+const genPassword = require("./lib/passwordUtils").genPassword;
+const { User } = require("./models");
+const MongoStore = require("connect-mongo")(session);
+
+require("./config/passport");
 
 // imports
 const { MONGO_URI, SERVER_PORT } = require("./config");
 const {
-  get_all_cards,
   get_all_sets,
   get_all_cards_from_set,
   get_all_sets_db,
@@ -19,16 +25,32 @@ const {
 const app = express();
 
 // init mongo
-mongoose.connect(MONGO_URI, { useNewUrlParser: true }, () => {
-  console.log("conntected to mongoDB");
-});
+mongoose.connect(
+  MONGO_URI,
+  { useNewUrlParser: true, useUnifiedTopology: true },
+  () => {
+    console.log("conntected to mongoDB");
+  }
+);
 mongoose.set("useFindAndModify", false);
 mongoose.set("useCreateIndex", true);
+
+app.use(
+  session({
+    secret: "test",
+    resave: false,
+    saveUninitialized: true,
+    store: mongoose.session,
+    cookie: { maxAge: 1000 * 60 * 60 * 24 },
+  })
+);
 
 // set up server
 app.use(bodyParser.urlencoded({ extended: false, limit: "50mb" }));
 app.use(bodyParser.json({ limit: "50mb" }));
 app.use(cors());
+app.use(passport.initialize());
+app.use(passport.session());
 
 // POST
 
@@ -80,6 +102,61 @@ app.post("/card/getprices", async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(404).send("no sets were found.");
+  }
+});
+
+//login
+app.post("/login", passport.authenticate("local"), async (req, res) => {
+  try {
+    res.send(req.isAuthenticated());
+  } catch (error) {
+    res.status(404).send(error);
+  }
+});
+
+//register
+app.post("/register", async (req, res) => {
+  try {
+    const saltHash = genPassword(req.body.pw);
+
+    const salt = saltHash.salt;
+    const hash = saltHash.hash;
+
+    await User.findOne({ username: req.body.uname }).then((user) => {
+      try {
+        if (!user) {
+          const newUser = new User({
+            username: req.body.uname,
+            hash: hash,
+            salt: salt,
+          });
+
+          newUser.save().then((user) => {
+            console.log(user);
+          });
+
+          res.status(200).send(newUser);
+        } else {
+          res.send("username is taken");
+          return;
+        }
+      } catch (error) {
+        res.send(error);
+      }
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(404).send(error);
+  }
+});
+
+//logout
+app.post("/logout", async (req, res) => {
+  try {
+    req.logout();
+    res.send(req.isAuthenticated());
+  } catch (error) {
+    res.status(404).send(error);
   }
 });
 

@@ -11,6 +11,7 @@ import Home from "./Home.jsx";
 import Footer from "./Footer.jsx";
 import Set from "./Set.jsx";
 import Card from "./Card.jsx";
+import Register from "./Register.jsx";
 
 function App() {
   const [isLoggedIn, setLogin] = useState(false);
@@ -46,6 +47,9 @@ function App() {
           </Route>
           <Route path="/card">
             <Card selectedCard={selectedCard} />
+          </Route>
+          <Route path="/register">
+            <Register />
           </Route>
         </Switch>
       </div>

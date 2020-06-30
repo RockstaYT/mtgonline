@@ -1,0 +1,15 @@
+.register {
+  background-color: $background-color;
+  min-height: 94vh;
+  display: grid;
+}
+
+.registerList {
+  background-color: red;
+  list-style: none;
+
+  .username {
+    background-color: blue;
+    font-size: 3.2vh;
+  }
+}
