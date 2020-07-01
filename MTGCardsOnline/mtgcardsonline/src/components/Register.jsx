@@ -53,7 +53,7 @@ function Register(props) {
     <div className="register">
       <ul className="registerList">
         <li>
-          <label For="uname">Username: </label>
+          <label htmlFor="uname">Username: </label>
           <input
             type="uname"
             id="usernameInput"

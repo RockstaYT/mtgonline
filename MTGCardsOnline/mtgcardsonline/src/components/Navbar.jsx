@@ -21,10 +21,17 @@ function Navbar(props) {
           placeholder="Search cards..."
         />
       </div>
-      <div className="loginModule">
-        <button onClick={() => registerClicked()}>Register</button>
-        <button>Login</button>
-      </div>
+
+      {!props.isLoggedIn ? (
+        <div className="loginModule">
+          <button onClick={() => registerClicked()}>Register</button>
+          <button>Login</button>
+        </div>
+      ) : (
+        <div className="loginModule">
+          <button>Logout</button>
+        </div>
+      )}
     </div>
   );
 }

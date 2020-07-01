@@ -185,6 +185,15 @@ app.get("/sets/getall", async (req, res) => {
   }
 });
 
+//check if logged in
+app.get("/login/check", async (req, res) => {
+  try {
+    res.send(req.isAuthenticated());
+  } catch (error) {
+    res.status(404).send(error);
+  }
+});
+
 app.listen(SERVER_PORT, () => {
   console.log(`Server listening at port: ${SERVER_PORT}`);
 });
