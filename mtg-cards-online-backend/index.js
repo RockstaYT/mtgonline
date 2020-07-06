@@ -30,12 +30,6 @@ mongoose.set("useCreateIndex", true);
 
 /*--------------------------Server Port--------------------------*/
 
-/*app.post("/", async (req, res) => {
-  try {
-    console.log("Done.");
-  } catch (error) {}
-});*/
-
 app.listen(SERVER_PORT, () => {
   console.log(`Server listening at port: ${SERVER_PORT}`);
 });
