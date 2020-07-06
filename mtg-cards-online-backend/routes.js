@@ -5,14 +5,16 @@ var express = require("express");
 var router = express.Router();
 
 /*--------------------------Imports--------------------------*/
+const { create_all_sets } = require("./services");
 
 /*--------------------------POST--------------------------*/
 
 /*Create all sets. If set exists, skip it.*/
-router.post("sets/create_all", async (req, res) => {
+router.post("/sets/create_all", async (req, res) => {
   try {
     console.log("Creating all sets.");
-    //create all sets
+    create_all_sets();
+    res.status(200).send("Created all sets succesfully.");
   } catch (error) {
     console.log("ERROR:", error);
     res.status(404).send(error);
@@ -20,7 +22,7 @@ router.post("sets/create_all", async (req, res) => {
 });
 
 /*Create all cards from specific set. If card alredy exists, skip it.*/
-router.post("set/create_all_cards", async (req, res) => {
+router.post("/set/create_all_cards", async (req, res) => {
   try {
   } catch (error) {
     console.log("ERROR:", error);
@@ -29,7 +31,7 @@ router.post("set/create_all_cards", async (req, res) => {
 });
 
 /*Get all sets.*/
-router.post("sets/get_all", async (req, res) => {
+router.post("/sets/get_all", async (req, res) => {
   try {
     console.log("Creating all sets.");
     //create all sets
@@ -40,7 +42,7 @@ router.post("sets/get_all", async (req, res) => {
 });
 
 /*Get all cards from specific set.*/
-router.post("set/get_cards", async (req, res) => {
+router.post("/set/get_cards", async (req, res) => {
   try {
   } catch (error) {
     console.log("ERROR:", error);
@@ -49,7 +51,7 @@ router.post("set/get_cards", async (req, res) => {
 });
 
 /*Get specific card from specific set.*/
-router.post("set/get_card", async (req, res) => {
+router.post("/set/get_card", async (req, res) => {
   try {
   } catch (error) {
     console.log("ERROR:", error);
@@ -58,7 +60,7 @@ router.post("set/get_card", async (req, res) => {
 });
 
 /*Get all prices from specific card*/
-router.post("card/get_prices", async (req, res) => {
+router.post("/card/get_prices", async (req, res) => {
   try {
   } catch (error) {
     console.log("ERROR:", error);
@@ -67,7 +69,7 @@ router.post("card/get_prices", async (req, res) => {
 });
 
 /*Get all reprints from specific card*/
-router.post("card/get_reprint", async (req, res) => {
+router.post("/card/get_reprint", async (req, res) => {
   try {
   } catch (error) {
     console.log("ERROR:", error);
