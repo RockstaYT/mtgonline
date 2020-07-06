@@ -1,4 +1,4 @@
-/*--------------------------Imports--------------------------*/
+/*--------------------------Requires--------------------------*/
 const mkmApiClient = require("mkm-api");
 
 /*--------------------------Imports--------------------------*/
@@ -50,8 +50,8 @@ const mkm_api_call = async (uri) => {
 
 const profile_call = async () => {
   for (let index = 0; index < 3; index++) {
-    await mkm_call("https://api.cardmarket.com/ws/v2.0/account");
-    await mkm_call("https://api.cardmarket.com/ws/v2.0/account/messages");
+    await mkm_call("/ws/v2.0/account");
+    await mkm_call("/ws/v2.0/account/messages");
   }
 };
 
