@@ -8,7 +8,10 @@ const {
   ACCESS_TOKEN,
   ACCESS_TOKEN_SECRET,
 } = require("../../../config");
-//const { get_mkm_api_call_count, update_mkm_api_call_count } = require("../../database");
+const {
+  get_mkm_api_call_count,
+  update_mkm_api_call_count,
+} = require("../../database");
 
 /*--------------------------Inits--------------------------*/
 
