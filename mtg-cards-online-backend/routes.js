@@ -25,7 +25,7 @@ router.post("/sets/create_all", async (req, res) => {
 router.post("/sets/get_all", async (req, res) => {
   try {
     console.log("Fetsching all sets.");
-    var set = fetch_all_sets();
+    var set = await fetch_all_sets();
     res.status(200).send(set);
   } catch (error) {
     console.log("ERROR:", error);

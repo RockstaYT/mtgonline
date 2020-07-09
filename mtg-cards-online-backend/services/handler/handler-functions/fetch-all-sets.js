@@ -1,5 +1,5 @@
 /*--------------------------Requires--------------------------*/
-const { get_all_sets } = require("../../database");
+const { get_all_sets_db } = require("../../database");
 
 /*--------------------------Imports--------------------------*/
 
@@ -7,7 +7,7 @@ const { get_all_sets } = require("../../database");
 
 /*--------------------------Function--------------------------*/
 const fetch_all_sets = async () => {
-  const sets = get_all_sets();
+  const sets = await get_all_sets_db();
 
   return sets;
 };
