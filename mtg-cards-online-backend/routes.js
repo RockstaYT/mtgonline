@@ -5,7 +5,7 @@ var express = require("express");
 var router = express.Router();
 
 /*--------------------------Imports--------------------------*/
-const { create_all_sets } = require("./services");
+const { create_all_sets, fetch_all_sets } = require("./services");
 
 /*--------------------------POST--------------------------*/
 
@@ -21,20 +21,21 @@ router.post("/sets/create_all", async (req, res) => {
   }
 });
 
-/*Create all cards from specific set. If card alredy exists, skip it.*/
-router.post("/set/create_all_cards", async (req, res) => {
+/*Get all sets.*/
+router.post("/sets/get_all", async (req, res) => {
   try {
+    console.log("Fetsching all sets.");
+    var set = fetch_all_sets();
+    res.status(200).send(set);
   } catch (error) {
     console.log("ERROR:", error);
     res.status(404).send(error);
   }
 });
 
-/*Get all sets.*/
-router.post("/sets/get_all", async (req, res) => {
+/*Create all cards from specific set. If card alredy exists, skip it.*/
+router.post("/set/create_all_cards", async (req, res) => {
   try {
-    console.log("Creating all sets.");
-    //create all sets
   } catch (error) {
     console.log("ERROR:", error);
     res.status(404).send(error);
