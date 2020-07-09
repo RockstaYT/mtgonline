@@ -9,7 +9,7 @@ const create_all_sets = async () => {
   var all_expansions = await get_all_sets();
 
   //call db set creater
-  for (let expansion of all_expansions.expansion) {
+  for (let expansion of all_expansions) {
     var name = expansion.enName;
     var setId = parseInt(expansion.idExpansion);
     var releaseDate = expansion.releaseDate;

@@ -8,10 +8,7 @@ const {
   ACCESS_TOKEN,
   ACCESS_TOKEN_SECRET,
 } = require("../../../config");
-const {
-  get_mkm_api_call_count,
-  update_mkm_api_call_count,
-} = require("../../database");
+const { get_mkm_call_count, update_mkm_call_count } = require("../../database");
 
 /*--------------------------Inits--------------------------*/
 
@@ -26,7 +23,7 @@ const mkm_api_call = async (uri) => {
     }
 
     //get the call count
-    var call_count = await get_mkm_api_call_count();
+    var call_count = await get_mkm_call_count();
 
     if (call_count > 3500) {
       throw new error("Too many api calls");
@@ -38,11 +35,11 @@ const mkm_api_call = async (uri) => {
     //if is multiple of x, 6 profile calls are made
     var is_mutiple = await isMultiple(call_count, 200);
 
-    if (is_mutiple) {
+    if (is_mutiple && call_count === 0) {
       await profile_call();
-      await update_mkm_api_call_count(7);
+      await update_mkm_call_count(7);
     } else {
-      await update_mkm_api_call_count(1);
+      await update_mkm_call_count(1);
     }
 
     return mkm_reponse;
@@ -53,14 +50,14 @@ const mkm_api_call = async (uri) => {
 
 const profile_call = async () => {
   for (let index = 0; index < 3; index++) {
-    await mkm_call("/ws/v2.0/account");
-    await mkm_call("/ws/v2.0/account/messages");
+    await mkm_call("/ws/v2.0/output.json/account");
+    await mkm_call("/ws/v2.0/output.json/account/messages");
   }
 };
 
 const mkm_call = async (uri) => {
   //setup mkm client
-  const Client = new MkmApiClient(APP_TOKEN, APP_SECRET);
+  const Client = new mkmApiClient(APP_TOKEN, APP_SECRET);
   Client.setAccessTokens(ACCESS_TOKEN, ACCESS_TOKEN_SECRET);
 
   //call api

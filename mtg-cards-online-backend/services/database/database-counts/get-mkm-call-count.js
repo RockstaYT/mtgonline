@@ -2,7 +2,7 @@
 const { Call_Count } = require("../../../models");
 
 /*--------------------------Function--------------------------*/
-const get_mkm_api_call_count = async () => {
+const get_mkm_call_count = async () => {
   //check if the call counter exists
   let call_count = await Call_Count.findOne({});
 
@@ -15,4 +15,4 @@ const get_mkm_api_call_count = async () => {
 };
 
 /*--------------------------Exports--------------------------*/
-module.exports = { get_mkm_api_call_count };
+module.exports = { get_mkm_call_count };
