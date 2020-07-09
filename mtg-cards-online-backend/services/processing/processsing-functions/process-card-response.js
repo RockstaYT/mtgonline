@@ -1,21 +1,14 @@
-const { create_card } = require("../../database");
-const { mkm_api_call } = require("./mkm-api-call");
+/*--------------------------Requires--------------------------*/
+const { mkm_api_call } = require("../../cardmarket");
 
-const get_all_cards_from_set = async (setId) => {
-  console.log(setId);
-  //setup url to get singles and call mkm api to get singles
-  const uri = `/ws/v2.0/output.json/expansions/${setId}/singles`;
-  let responseJSON = await mkm_api_call(uri);
+/*--------------------------Imports--------------------------*/
 
-  //forech single in the set create card element
-  for (let element of responseJSON.single) {
-    await card_loop(element);
-  }
-};
+/*--------------------------Inits--------------------------*/
 
-const card_loop = async (element) => {
+/*--------------------------Function--------------------------*/
+const process_card_response = async (card_element) => {
   //get the card id
-  const cardId = element.idProduct;
+  const cardId = card_element.idProduct;
 
   //setup url to get single card info and call mkm api to get single info
   const uri = `/ws/v2.0/output.json/products/${cardId}`;
@@ -33,4 +26,5 @@ const card_loop = async (element) => {
   await create_card(cardName, setId, price, priceFoil, image, website, rarity);
 };
 
-module.exports = { get_all_cards_from_set };
+/*--------------------------Exports--------------------------*/
+module.exports = { process_card_response };

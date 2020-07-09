@@ -16,6 +16,7 @@ const {
   get_all_sets_db,
   create_card,
 } = require("./database");
+const { process_card_response } = require("./processing");
 
 /*--------------------------Exports--------------------------*/
 module.exports = {
@@ -30,4 +31,5 @@ module.exports = {
   get_all_cards_from_set,
   create_card,
   create_card_from_set,
+  process_card_response,
 };
