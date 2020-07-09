@@ -10,15 +10,22 @@ const { process_card_response } = require("../../processing");
 /*--------------------------Function--------------------------*/ 32;
 const create_card_from_set = async (setId) => {
   // fetch all cards from cm
-  var response = get_all_cards_from_set();
+  var response = await get_all_cards_from_set(setId);
 
-  // proccess response
-  for (let element in response) {
-    process_card_response(element);
+  for (let element of response.single) {
+    // proccess response
+    var cardInfo = await process_card_response(element);
+    // create card
+    await create_card(
+      cardInfo.cardName,
+      cardInfo.setId,
+      cardInfo.price,
+      cardInfo.price_foil,
+      cardInfo.image,
+      cardInfo.website,
+      cardInfo.rarity
+    );
   }
-
-  // create card
-  create_card(name, setId, price, price_foil, image, website, rarity);
 };
 
 /*--------------------------Exports--------------------------*/

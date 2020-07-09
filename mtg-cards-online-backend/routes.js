@@ -1,11 +1,20 @@
 /*--------------------------Requires--------------------------*/
 var express = require("express");
+var bodyParser = require("body-parser");
+var cors = require("cors");
 
 /*--------------------------Inits--------------------------*/
 var router = express.Router();
+router.use(bodyParser.urlencoded({ extended: false, limit: "50mb" }));
+router.use(bodyParser.json({ limit: "50mb" }));
+router.use(cors());
 
 /*--------------------------Imports--------------------------*/
-const { create_all_sets, fetch_all_sets } = require("./services");
+const {
+  create_all_sets,
+  fetch_all_sets,
+  create_card_from_set,
+} = require("./services");
 
 /*--------------------------POST--------------------------*/
 
@@ -36,6 +45,9 @@ router.post("/sets/get_all", async (req, res) => {
 /*Create all cards from specific set. If card alredy exists, skip it.*/
 router.post("/set/create_all_cards", async (req, res) => {
   try {
+    var setID = await req.body.setId;
+    await create_card_from_set(setID);
+    res.status(200).send();
   } catch (error) {
     console.log("ERROR:", error);
     res.status(404).send(error);

@@ -23,7 +23,17 @@ const process_card_response = async (card_element) => {
   let rarity = await response.product.rarity;
   let setId = await parseInt(response.product.expansion.idExpansion);
 
-  await create_card(cardName, setId, price, priceFoil, image, website, rarity);
+  var cardInfo = {
+    cardName: cardName,
+    price: price,
+    priceFoil: priceFoil,
+    image: image,
+    website: website,
+    rarity: rarity,
+    setId: setId,
+  };
+
+  return cardInfo;
 };
 
 /*--------------------------Exports--------------------------*/

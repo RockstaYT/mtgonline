@@ -16,10 +16,17 @@ const create_card = async (
   let newPrice = await Price.create({ price, date });
   let newPriceFoil = await Price.create({ price: price_foil, date });
 
+  console.log();
+
+  //get set
+  const set = await Set.findOne({
+    setId: setId,
+  });
+
   //check if card exists
   const card = await Card.findOne({
     name: name,
-    set: setId,
+    set: set,
   });
 
   if (await card) {
@@ -28,11 +35,6 @@ const create_card = async (
     );
     return;
   }
-
-  //get set
-  const set = await Set.findOne({
-    setId: setId,
-  });
 
   //remove (...) from card name
   let nameTrimmed;
