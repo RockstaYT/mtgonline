@@ -14,38 +14,34 @@ const { get_mkm_call_count, update_mkm_call_count } = require("../../database");
 
 /*--------------------------Function--------------------------*/
 const mkm_api_call = async (uri) => {
-  try {
-    //check if uri is null or empty
-    var uri_is_empty = await isEmpty(uri);
+  //check if uri is null or empty
+  var uri_is_empty = await isEmpty(uri);
 
-    if (uri_is_empty) {
-      throw new error("Given uri is empty or null.");
-    }
-
-    //get the call count
-    var call_count = await get_mkm_call_count();
-
-    if (call_count > 3500) {
-      throw new error("Too many api calls");
-    }
-
-    //call mkm api
-    var mkm_reponse = await mkm_call(uri);
-
-    //if is multiple of x, 6 profile calls are made
-    var is_mutiple = await isMultiple(call_count, 200);
-
-    if (is_mutiple && call_count === 0) {
-      await profile_call();
-      await update_mkm_call_count(7);
-    } else {
-      await update_mkm_call_count(1);
-    }
-
-    return mkm_reponse;
-  } catch (error) {
-    console.log(error);
+  if (uri_is_empty) {
+    throw new error("Given uri is empty or null.");
   }
+
+  //get the call count
+  var call_count = await get_mkm_call_count();
+
+  if (call_count > 3500) {
+    throw new error("Too many api calls");
+  }
+
+  //call mkm api
+  var mkm_reponse = await mkm_call(uri);
+
+  //if is multiple of x, 6 profile calls are made
+  var is_mutiple = await isMultiple(call_count, 200);
+
+  if (is_mutiple && call_count === 0) {
+    await profile_call();
+    await update_mkm_call_count(7);
+  } else {
+    await update_mkm_call_count(1);
+  }
+
+  return mkm_reponse;
 };
 
 const profile_call = async () => {
