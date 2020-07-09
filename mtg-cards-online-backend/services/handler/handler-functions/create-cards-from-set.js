@@ -1,6 +1,7 @@
 /*--------------------------Requires--------------------------*/
 const { get_all_cards_from_set } = require("../../cardmarket");
 const { create_card } = require("../../database");
+const { process_card_response } = require("../../processing");
 
 /*--------------------------Imports--------------------------*/
 
@@ -10,7 +11,12 @@ const { create_card } = require("../../database");
 const create_card_from_set = async (setId) => {
   // fetch all cards from cm
   var response = get_all_cards_from_set();
+
   // proccess response
+  for (let element in response) {
+    process_card_response(element);
+  }
+
   // create card
   create_card(name, setId, price, price_foil, image, website, rarity);
 };
