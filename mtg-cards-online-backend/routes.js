@@ -15,6 +15,7 @@ const {
   fetch_all_sets,
   create_card_from_set,
   fetch_all_cards_from_set,
+  fetch_card,
 } = require("./services");
 
 /*--------------------------POST--------------------------*/
@@ -71,8 +72,12 @@ router.post("/set/get_cards", async (req, res) => {
 });
 
 /*Get specific card from specific set.*/
-router.post("/set/get_card", async (req, res) => {
+router.post("/get_card", async (req, res) => {
   try {
+    var cardID = req.body.cardID;
+
+    var card = await fetch_card(cardID);
+    res.status(200).send(card);
   } catch (error) {
     console.log("ERROR:", error);
     res.status(404).send(error);

@@ -9,6 +9,7 @@ const {
   fetch_all_sets,
   create_card_from_set,
   fetch_all_cards_from_set,
+  fetch_card,
 } = require("./handler");
 const {
   create_set,
@@ -38,4 +39,5 @@ module.exports = {
   fetch_all_cards_from_set,
   get_set_db,
   get_card_db,
+  fetch_card,
 };
