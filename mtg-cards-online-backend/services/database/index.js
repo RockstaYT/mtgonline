@@ -8,6 +8,8 @@ const {
 const { create_card } = require("./database-card/create-card");
 const { get_set_db } = require("./database-set/get-set");
 const { get_card_db } = require("./database-card/get-card");
+const { get_price_db } = require("./database-price/get-price");
+const { get_price_foil_db } = require("./database-price/get-price-foil");
 
 /*--------------------------Exports--------------------------*/
 module.exports = {
@@ -18,4 +20,6 @@ module.exports = {
   create_card,
   get_set_db,
   get_card_db,
+  get_price_db,
+  get_price_foil_db,
 };

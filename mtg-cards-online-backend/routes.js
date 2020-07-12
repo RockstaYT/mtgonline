@@ -16,6 +16,7 @@ const {
   create_card_from_set,
   fetch_all_cards_from_set,
   fetch_card,
+  fetch_prices_of_card,
 } = require("./services");
 
 /*--------------------------POST--------------------------*/
@@ -87,6 +88,10 @@ router.post("/get_card", async (req, res) => {
 /*Get all prices from specific card*/
 router.post("/card/get_prices", async (req, res) => {
   try {
+    var card = req.body.card;
+    var prices = await fetch_prices_of_card(card);
+
+    res.status(200).send(prices);
   } catch (error) {
     console.log("ERROR:", error);
     res.status(404).send(error);

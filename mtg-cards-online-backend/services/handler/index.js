@@ -8,6 +8,9 @@ const {
 const {
   create_card_from_set,
 } = require("./handler-functions/create-cards-from-set");
+const {
+  fetch_prices_of_card,
+} = require("./handler-functions/fetch-prices-of-card");
 
 /*--------------------------Exports--------------------------*/
 module.exports = {
@@ -16,4 +19,5 @@ module.exports = {
   create_card_from_set,
   fetch_all_cards_from_set,
   fetch_card,
+  fetch_prices_of_card,
 };
