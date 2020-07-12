@@ -11,6 +11,7 @@ const {
   fetch_all_cards_from_set,
   fetch_card,
   fetch_prices_of_card,
+  fetch_reprint_of_card,
 } = require("./handler");
 const {
   create_set,
@@ -22,6 +23,7 @@ const {
   get_card_db,
   get_price_db,
   get_price_foil_db,
+  get_reprint_db,
 } = require("./database");
 const { process_card_response } = require("./processing");
 
@@ -46,4 +48,6 @@ module.exports = {
   fetch_prices_of_card,
   get_price_db,
   get_price_foil_db,
+  get_reprint_db,
+  fetch_reprint_of_card,
 };

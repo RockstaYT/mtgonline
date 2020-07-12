@@ -11,6 +11,9 @@ const {
 const {
   fetch_prices_of_card,
 } = require("./handler-functions/fetch-prices-of-card");
+const {
+  fetch_reprint_of_card,
+} = require("./handler-functions/fetch-reprint-of-card");
 
 /*--------------------------Exports--------------------------*/
 module.exports = {
@@ -20,4 +23,5 @@ module.exports = {
   fetch_all_cards_from_set,
   fetch_card,
   fetch_prices_of_card,
+  fetch_reprint_of_card,
 };

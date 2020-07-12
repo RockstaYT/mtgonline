@@ -10,6 +10,7 @@ const { get_set_db } = require("./database-set/get-set");
 const { get_card_db } = require("./database-card/get-card");
 const { get_price_db } = require("./database-price/get-price");
 const { get_price_foil_db } = require("./database-price/get-price-foil");
+const { get_reprint_db } = require("./database-reprint/get-reprint");
 
 /*--------------------------Exports--------------------------*/
 module.exports = {
@@ -22,4 +23,5 @@ module.exports = {
   get_card_db,
   get_price_db,
   get_price_foil_db,
+  get_reprint_db,
 };
