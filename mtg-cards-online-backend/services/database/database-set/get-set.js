@@ -1,12 +1,12 @@
 /*--------------------------Requires--------------------------*/
-const { get_all_sets_db } = require("../../database");
+const { Set } = require("../../../models");
 
 /*--------------------------Function--------------------------*/
-const fetch_all_sets = async () => {
-  const sets = await get_all_sets_db();
+const get_set_db = async (setId) => {
+  const set = await Set.findOne({ setId: setId });
 
-  return sets;
+  return set;
 };
 
 /*--------------------------Exports--------------------------*/
-module.exports = { fetch_all_sets };
+module.exports = { get_set_db };

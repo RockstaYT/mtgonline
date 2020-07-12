@@ -6,6 +6,8 @@ const {
   update_mkm_call_count,
 } = require("./database-counts/update-mkm-call-count");
 const { create_card } = require("./database-card/create-card");
+const { get_set_db } = require("./database-set/get-set");
+const { get_card_db } = require("./database-card/get-card");
 
 /*--------------------------Exports--------------------------*/
 module.exports = {
@@ -14,4 +16,6 @@ module.exports = {
   update_mkm_call_count,
   get_all_sets_db,
   create_card,
+  get_set_db,
+  get_card_db,
 };

@@ -1,6 +1,5 @@
 /*--------------------------Requires--------------------------*/
 const { get_all_sets } = require("../../cardmarket");
-
 const { create_set } = require("../../database");
 
 /*--------------------------Function--------------------------*/
